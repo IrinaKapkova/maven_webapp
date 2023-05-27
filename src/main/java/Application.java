@@ -12,19 +12,19 @@ public class Application {
         final String password = "IrNiKa";
 
         // Создаем соединение с базой данных
-        Connection  connection= DriverManager.getConnection(url, user, password);
+        Connection connection = DriverManager.getConnection(url, user, password);
         //Создаем объект класса EmployeeDAOImpl
-        EmployeeDAOimpl employeeDAOimpl= new EmployeeDAOimpl(connection);
+        EmployeeDAOimpl employeeDAOimpl = new EmployeeDAOimpl(connection);
         // Создаём новый экземпляр (строку) в базе данных
-        City city1= new City (9,"Moskow");
-        Employee employee= new Employee(1, "Eva","Isaeva", "woman",35, city1);
+        City city1 = new City(3, "Rostov");
+        Employee employee = new Employee(1, "Marina", "Vasina", "woman", 32, city1);
         employeeDAOimpl.add(employee);
         //Вызываем метод удаления из базы данных
-        employeeDAOimpl.deleteEmployee(2);
+        employeeDAOimpl.deleteEmployee(13);
 //        Проверим работы метода обновления данных в базе
-        Employee employee1= new Employee(14, "Egor","Isaev", "man",37, city1);
+        Employee employee1 = new Employee(14, "Oleg", "Kotov", "man", 25, city1);
         employeeDAOimpl.updateEmployee(11, employee1);
-        employeeDAOimpl.updateNameById(9, "Sofiya");
+        employeeDAOimpl.updateNameById(9, "Raya");
         System.out.println(employeeDAOimpl.getById(11));
 // вызова метода для получения всех элементов таблицы
         System.out.println(employeeDAOimpl.readAll());
