@@ -34,7 +34,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
     }
 
     @Override
-    public Employee getById(int id) {
+    public Employee getById(int id) throws SQLException {
         try (PreparedStatement preparedStatement = connection.prepareStatement(
                 "SELECT * FROM employee INNER JOIN city ON employee.city_id=city.city_id WHERE id=(?)")) {
             preparedStatement.setInt(1, id);
@@ -43,7 +43,7 @@ public class EmployeeDAOimpl implements EmployeeDAO {
             resultSet.next();
             return Employee.create(resultSet);
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(e+": По указанному в запросе id  нет записи в базе данных о сотруднике");
         }
     }
 
