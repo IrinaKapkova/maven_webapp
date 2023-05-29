@@ -28,7 +28,8 @@ public class Application {
         System.out.println(employeeDAOimpl.getById(11));
 // вызова метода для получения всех элементов таблицы
         System.out.println(employeeDAOimpl.readAll());
-//        проверим вывод сообщения при отсутствии данных о сотруднике по id в базе данных
+//     проверим работу метода о выводе информации о сотруднике при отсутствии данных о сотруднике по id  в базе данных
+        System.out.println(employeeDAOimpl.getById(20));
     }
 }
 
