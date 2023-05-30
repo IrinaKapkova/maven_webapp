@@ -4,29 +4,36 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.util.Set;
 
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 @Table (name = "city")
+
 public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column (name ="city_id")
+    private int cityId;
 
-    private int city_id;
-    @Column (name ="city_name")
-    private String city_name;
+    @Column (name ="city_name", length = 100)
+    private String cityName;
+// mappedBy указывает  поле в объекте, который является владельцем отношения
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private Set <Employee> employees;
 
-    public City(String city_name) {
-        this.city_name = city_name;
+    public City(String cityName) {
+        this.cityName = cityName;
     }
 
     @Override
     public String toString() {
         return "City{" +
-                "city_id=" + city_id +
-                ", city_name='" + city_name + '\'' +
+                "cityId=" + cityId +
+                ", cityName='" + cityName + '\'' +
                 '}';
     }
 
@@ -35,11 +42,11 @@ public class City {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return city_id == city.city_id && Objects.equals(city_name, city.city_name);
+        return cityId == city.cityId && Objects.equals(cityName, city.cityName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(city_id, city_name);
+        return Objects.hash(cityId, cityName);
     }
 }
