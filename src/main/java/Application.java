@@ -1,35 +1,27 @@
-import model.City;
-import model.Employee;
+import entity.Employee;
+import service.EmployeeDAO;
 import service.EmployeeDAOimpl;
-
-import java.sql.*;
-
 public class Application {
-    public static void main(String[] args) throws SQLException {
-        // Определяем переменные для подключения к базе данных
-        final String url = "jdbc:postgresql://localhost:5432/skypro";
-        final String user = "postgres";
-        final String password = "IrNiKa";
-
-        // Создаем соединение с базой данных
-        Connection connection = DriverManager.getConnection(url, user, password);
+    public static void main(String[] args) {
         //Создаем объект класса EmployeeDAOImpl
-        EmployeeDAOimpl employeeDAOimpl = new EmployeeDAOimpl(connection);
+        EmployeeDAO employeeDAO = new EmployeeDAOimpl();
         // Создаём новый экземпляр (строку) в базе данных
-        City city1 = new City(3, "Rostov");
-        Employee employee = new Employee(1, "Marina", "Vasina", "woman", 32, city1);
-        employeeDAOimpl.add(employee);
+        Employee employee1 = new Employee("Danil", "Petrov", "man", 19, 4);
+        employeeDAO.add(employee1);
+        employeeDAO.readAll().forEach(System.out::println);
         //Вызываем метод удаления из базы данных
-        employeeDAOimpl.deleteEmployee(13);
-//        Проверим работы метода обновления данных в базе
-        Employee employee1 = new Employee(14, "Oleg", "Kotov", "man", 25, city1);
-        employeeDAOimpl.updateEmployee(11, employee1);
-        employeeDAOimpl.updateNameById(9, "Raya");
-        System.out.println(employeeDAOimpl.getById(11));
-// вызова метода для получения всех элементов таблицы
-        System.out.println(employeeDAOimpl.readAll());
-//     проверим работу метода о выводе информации о сотруднике при отсутствии данных о сотруднике по id  в базе данных
-        System.out.println(employeeDAOimpl.getById(20));
+        employeeDAO.deleteEmployee(employee1);
+        employeeDAO.readAll().forEach(System.out::println);
+//        Проверим метод  обновления данных в базе
+        Employee byId = employeeDAO.getById(6);
+        byId.setFirst_name("Lina");
+        employeeDAO.updateEmployee(byId);
+        System.out.println(employeeDAO.getById(6));
+// Проверим метод для получения всех элементов таблицы
+        employeeDAO.readAll().forEach(System.out::println);
+        //Проверим метод удаления из базы данных по id
+        employeeDAO.deleteEmployeeById(11);
+        employeeDAO.readAll().forEach(System.out::println);
     }
 }
 
