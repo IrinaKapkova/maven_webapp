@@ -17,7 +17,7 @@ public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column (name ="city_id")
-    private int cityId;
+    private int id;
 
     @Column (name ="city_name", length = 100)
     private String cityName;
@@ -32,7 +32,7 @@ public class City {
     @Override
     public String toString() {
         return "City{" +
-                "cityId=" + cityId +
+                "cityId=" + id +
                 ", cityName='" + cityName + '\'' +
                 '}';
     }
@@ -42,11 +42,11 @@ public class City {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         City city = (City) o;
-        return cityId == city.cityId && Objects.equals(cityName, city.cityName);
+        return id == city.id && Objects.equals(cityName, city.cityName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(cityId, cityName);
+        return Objects.hash(id, cityName);
     }
 }
