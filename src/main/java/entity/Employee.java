@@ -18,21 +18,26 @@ public class Employee {
 
     private int id;
     @Column (name = "first_name", length =30)
-    private String first_name;
-    @Column (name = "last_name", length =30)
-    private String last_name;
+    private String firstName;
+    @Column (name = "last_name", length =40)
+    private String lastName;
     @Column (name = "gender", length =5)
     private String gender;
-    private int age;
-    @Column (name = "city_id")
-    private int city_id;
 
-    public Employee(String first_name, String last_name, String gender, int age, int city_id) {
-        this.first_name = first_name;
-        this.last_name = last_name;
+    @Column (name = "age")
+    private int age;
+
+    @ManyToOne
+    @JoinColumn(referencedColumnName ="city_id")
+    private City city;
+
+
+    public Employee(String firstName, String lastName, String gender, int age, City city) {
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.age = age;
-        this.city_id = city_id;
+        this.city = city;
     }
 
     @Override
@@ -40,12 +45,12 @@ public class Employee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Employee employee = (Employee) o;
-        return id == employee.id && age == employee.age && city_id == employee.city_id && Objects.equals(first_name, employee.first_name) && Objects.equals(last_name, employee.last_name) && Objects.equals(gender, employee.gender);
+        return id == employee.id && age == employee.age && Objects.equals(firstName, employee.firstName) && Objects.equals(lastName, employee.lastName) && Objects.equals(gender, employee.gender) && Objects.equals(city, employee.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, first_name, last_name, gender, age, city_id);
+        return Objects.hash(id, firstName, lastName, gender, age, city);
     }
 }
 

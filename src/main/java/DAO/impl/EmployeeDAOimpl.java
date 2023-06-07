@@ -1,5 +1,6 @@
-package service;
+package DAO.impl;
 
+import DAO.EmployeeDAO;
 import exception.NotFoundEmployeeException;
 import entity.Employee;
 import org.hibernate.Session;
